@@ -1,0 +1,32 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+    commands:
+      - echo Installing dependencies...
+      - npm install
+      - npm install selenium-webdriver chromedriver
+
+  pre_build:
+    commands:
+      - echo Starting Xvfb...
+      - export DISPLAY=:99.0
+      - Xvfb :99 -screen 0 1920x1080x16 &
+
+  build:
+    commands:
+      - echo Running tests...
+      - node test.js
+
+  post_build:
+    commands:
+      - echo Syncing files to S3...
+      - aws s3 sync . s3://bucket-pagina-memes --delete
+      - echo Sync completed on `date`
+
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: yes
