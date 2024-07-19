@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cardsChosenId = [];
 
         if (cardsWon.length === cardArray.length / 2) {
-            alert('Congratulations! You found them all!');
+            alert('¡Felicidades! ¡Encontraste todas las parejas! Eres un maestro de los memes!!');
         }
     }
 
